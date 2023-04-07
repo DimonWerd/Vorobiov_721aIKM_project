@@ -31,6 +31,7 @@ namespace Vorobiov_721a_IKM_project
         {
             MajorObject = new MajorWork();
             MajorObject.SetTime();
+            MajorObject.Modify = false; // заборона запису
             About A = new About(); // створення форми About
             A.tAbout.Start();
             A.ShowDialog(); // відображення діалогового вікна About
@@ -101,7 +102,8 @@ namespace Vorobiov_721a_IKM_project
         {
             if (sfdSave.ShowDialog() == DialogResult.OK)// Виклик діалогового вікна збереження файлу 
             {
-                MessageBox.Show(sfdSave.FileName);
+                MajorObject.WriteSaveFileName(sfdSave.FileName); // написання імені файлу
+                MajorObject.SaveToFile(); // метод збереження в файл
             }
         }
 
