@@ -31,6 +31,60 @@ namespace Vorobiov_721a_IKM_project
         }
 
         // Методи
+        public void Find(string Num) // пошук
+        {
+            int N;
+            try
+            {
+                N = Convert.ToInt16(Num); // перетворення номера рядка в int16 для відображення
+            }
+            catch
+            {
+                MessageBox.Show("помилка пошукового запиту"); // Виведення на екран повідомлення "помилка пошукового запиту"
+            return;
+            }
+
+            try
+            {
+                if (!File.Exists(this.OpenFileName))
+                {
+                    MessageBox.Show("файлу немає"); // Виведення на екран повідомлення "файлу немає"
+                return;
+                }
+                Stream S; // створення потоку
+                S = File.Open(this.OpenFileName, FileMode.Open); // відкриття файлу
+                Buffer D;
+                object O; // буферна змінна для контролю формату
+                BinaryFormatter BF = new BinaryFormatter(); // створення об'єкта для форматування
+                while (S.Position < S.Length)
+                {
+                    O = BF.Deserialize(S);
+                    D = O as Buffer;
+                    if (D == null) break;
+                    if (D.Key == N) // перевірка дорівнює чи номер пошуку номеру рядка в таблиці
+                    {
+                        string ST;
+                        ST = "Запис містить:" + (char)13 + "No" + Num + "Вхідні дані:" +
+
+                        D.Data + "Результат:" + D.Result;
+
+                        MessageBox.Show(ST, "Запис знайдена"); // Виведення на екран повідомлення "запис містить", номер, вхідних даних і результат
+
+                        
+
+                        S.Close();
+                        return;
+                    }
+                }
+                S.Close();
+                MessageBox.Show("Запис не знайдена"); // Виведення на екран повідомлення "Запис не знайдена"
+            }
+            catch
+            {
+                MessageBox.Show("Помилка файлу"); // Виведення на екран повідомлення "Помилка файлу"
+            }
+        } // Find закінчився
+
         public bool SaveFileNameExists()
         {
             if (this.SaveFileName == null)

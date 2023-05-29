@@ -157,5 +157,20 @@ namespace Vorobiov_721a_IKM_project
                 MessageBoxButtons.YesNo) == DialogResult.No)
                     e.Cancel = true; // припинити закриття
         }
+
+        private void tbSearch_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tbSearch_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void bSearch_Click(object sender, EventArgs e)
+        {
+            MajorObject.Find(tbSearch.Text); //пошук
+        }
     }
 }
