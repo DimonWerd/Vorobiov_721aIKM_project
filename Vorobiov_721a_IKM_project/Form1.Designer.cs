@@ -52,7 +52,9 @@ namespace Vorobiov_721a_IKM_project
             this.проПрограмуToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sfdSave = new System.Windows.Forms.SaveFileDialog();
             this.ofdOpen = new System.Windows.Forms.OpenFileDialog();
+            this.dgwOpen = new System.Windows.Forms.DataGridView();
             this.menuStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgwOpen)).BeginInit();
             this.SuspendLayout();
             // 
             // bStart
@@ -97,7 +99,7 @@ namespace Vorobiov_721a_IKM_project
             this.довідкаToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(800, 28);
+            this.menuStrip1.Size = new System.Drawing.Size(1188, 28);
             this.menuStrip1.TabIndex = 3;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -226,11 +228,22 @@ namespace Vorobiov_721a_IKM_project
             this.ofdOpen.FileName = "openFileDialog1";
             this.ofdOpen.Filter = "working files|*.Wer|All files|*.*";
             // 
+            // dgwOpen
+            // 
+            this.dgwOpen.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgwOpen.Location = new System.Drawing.Point(512, 64);
+            this.dgwOpen.Name = "dgwOpen";
+            this.dgwOpen.RowHeadersWidth = 51;
+            this.dgwOpen.RowTemplate.Height = 29;
+            this.dgwOpen.Size = new System.Drawing.Size(643, 310);
+            this.dgwOpen.TabIndex = 4;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(1188, 450);
+            this.Controls.Add(this.dgwOpen);
             this.Controls.Add(this.tbInput);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.bStart);
@@ -243,6 +256,7 @@ namespace Vorobiov_721a_IKM_project
             this.Load += new System.EventHandler(this.Form1_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgwOpen)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -272,6 +286,7 @@ namespace Vorobiov_721a_IKM_project
         private System.Windows.Forms.ToolStripMenuItem проПрограмуToolStripMenuItem;
         private System.Windows.Forms.SaveFileDialog sfdSave;
         private System.Windows.Forms.OpenFileDialog ofdOpen;
+        private System.Windows.Forms.DataGridView dgwOpen;
     }
 }
 

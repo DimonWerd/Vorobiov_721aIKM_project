@@ -66,37 +66,55 @@ namespace Vorobiov_721a_IKM_project
                 MessageBox.Show("Помилка файлу"); // Виведення на екран повідомлення "Помилка файлу"
             }
         }
+
         public void ReadFromFile(System.Windows.Forms.DataGridView DG) // зчитування з файлу
         {
             try
             {
                 if (!File.Exists(this.OpenFileName))
                 {
-                    MessageBox.Show("Файлу немає"); // Виведення на екран повідомлення "файлу немає"
+                    MessageBox.Show("файлу немає"); // Виведення на екран повідомлення "файлу немає"
                     return;
                 }
-                Stream S; // створення потоку
-                S = File.Open(this.OpenFileName, FileMode.Open); // зчитування даних з файлу
-                Buffer D;
-                object O; // буферна змінна для контролю формату
-                BinaryFormatter BF = new BinaryFormatter(); // створення об'єкту для форматування
+        Stream S; // створення потоку
+        S = File.Open(this.OpenFileName, FileMode.Open); // зчитування даних з файлу
+        Buffer D;
+        object O; // буферна змінна для контролю формату
+        BinaryFormatter BF = new BinaryFormatter(); // створення об'єкта для форматування
+        // формуємо таблицю
+        System.Data.DataTable MT = new System.Data.DataTable();
+        System.Data.DataColumn cKey = new System.Data.DataColumn("Ключ"); // формуємо колонку "Ключ"
+        System.Data.DataColumn cInput = new
+        System.Data.DataColumn("Вхідні дані"); // формуємо колонку "Вхідні дані"
+        System.Data.DataColumn cResult = new System.Data.DataColumn("Результат");
 
-                while (S.Position < S.Length)
-                {
-                    O = BF.Deserialize(S); // десеріалізація
-                    D = O as Buffer;
-                    if (D == null) break;
-                    // Виведення даних на екран
-                }
-                S.Close(); // закриття
-            }
-            catch
-            {
-                MessageBox.Show("Помилка файлу"); // Виведення на екран повідомлення "Помилка файлу"
-            }
-        } // ReadFromFile закінчився
+        // формуємо колонку "Результат"
 
-        public void SaveToFile() // Запис даних до файлу
+        MT.Columns.Add(cKey); // додавання ключа
+        MT.Columns.Add(cInput); // додавання вхідних даних
+        MT.Columns.Add(cResult); // додавання результату
+        while (S.Position<S.Length) {
+        O = BF.Deserialize(S); // десеріалізація
+        D = O as Buffer;
+        if (D == null) break;
+        System.Data.DataRow MR;
+        MR = MT.NewRow();
+        MR["Ключ"] = D.Key; // Занесення в таблицю номера
+        MR["Вхідні дані"] = D.Data; // Занесення в таблицю вхідних даних
+        MR["Результат"] = D.Result; // Занесення в таблицю результату
+        MT.Rows.Add(MR);
+    }
+    DG.DataSource = MT;
+    S.Close(); // закриття
+}
+catch
+{
+    MessageBox.Show("Помилка файлу"); // Виведення на екран повідомлення "Помилка файлу"
+    }
+} // ReadFromFile закінчився
+
+
+public void SaveToFile() // Запис даних до файлу
         {
             if (!this.Modify)
                 return;
