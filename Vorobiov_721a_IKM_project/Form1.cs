@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using System.IO.Ports;
 
 namespace Vorobiov_721a_IKM_project
 {
@@ -21,6 +22,26 @@ namespace Vorobiov_721a_IKM_project
         ToolStripLabel timeLabel;
         ToolStripLabel infoLabel;
         Timer timer;
+
+        string InputData = String.Empty;
+        delegate void SetTextCallback(string text);
+
+        void AddData(string text)
+        {
+            listBox1.Items.Add(text);
+        }
+        private void SetText(string text)
+        {
+            if (this.listBox1.InvokeRequired)
+            {
+                SetTextCallback d = new SetTextCallback(SetText);
+                this.Invoke(d, new object[] { text });
+            }
+            else
+            {
+                this.AddData(text);
+            }
+        }
 
         public Form1()
         {
@@ -180,9 +201,10 @@ namespace Vorobiov_721a_IKM_project
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
+            Application.DoEvents();//Обробляє всі повідомлення Windows, які в даний момент знаходяться в черзі повідомлень.
+            
             if (MajorObject.Modify)
-                if (MessageBox.Show("Дані не були збережені. Продовжити вихід?", "УВАГА",
-                MessageBoxButtons.YesNo) == DialogResult.No)
+                if (MessageBox.Show("Дані не були збережені. Продовжити вихід?", "УВАГА", MessageBoxButtons.YesNo) == DialogResult.No)
                     e.Cancel = true; // припинити закриття
         }
 
@@ -352,7 +374,7 @@ namespace Vorobiov_721a_IKM_project
 
                 MajorObject.SaveToTextFile(MajorObject.ReadSaveTextFileName(), dgwOpen);
             else
-                зберегтиЯкToolStripMenuItem1_Click(sender, e);
+                зберегтиЯкToolStripMenuItem2_Click(sender, e);
         }
 
         private void відкритиToolStripMenuItem1_Click(object sender, EventArgs e)
@@ -365,6 +387,31 @@ namespace Vorobiov_721a_IKM_project
             if (o.ShowDialog() == DialogResult.OK)
             {
                 richTextBox1.Text = File.ReadAllText(o.FileName, Encoding.Default);
+            }
+        }
+
+        private void label7_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void comboBox5_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (comboBox1.Text != "")
+
+            {
+                groupBox2.Enabled = true;
+                button2.Enabled = true;
+            }
+            else
+            {
+                groupBox2.Enabled = false;
+                button2.Enabled = false;
             }
         }
     }
