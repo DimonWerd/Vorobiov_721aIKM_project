@@ -406,12 +406,12 @@ namespace Vorobiov_721a_IKM_project
 
             {
                 groupBox2.Enabled = true;
-                button2.Enabled = true;
+                button10.Enabled = true;
             }
             else
             {
                 groupBox2.Enabled = false;
-                button2.Enabled = false;
+                button10.Enabled = false;
             }
         }
     }
