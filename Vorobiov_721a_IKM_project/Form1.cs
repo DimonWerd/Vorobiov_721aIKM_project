@@ -402,7 +402,7 @@ namespace Vorobiov_721a_IKM_project
 
         private void comboBox5_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (comboBox1.Text != "")
+            if (comboBox6.Text != "")
 
             {
                 groupBox2.Enabled = true;
@@ -412,6 +412,87 @@ namespace Vorobiov_721a_IKM_project
             {
                 groupBox2.Enabled = false;
                 button10.Enabled = false;
+            }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            if (button2.Text == "Старт")
+
+            {
+                if (port.IsOpen) port.Close();
+                #region Задаем параметры порта
+                port.PortName = comboBox6.Text;
+                port.BaudRate = Convert.ToInt32(comboBox3.Text);
+                port.DataBits = Convert.ToInt32(comboBox5.Text);
+                switch (comboBox4.Text)
+                {
+                    case "Пробел":
+                        port.Parity = Parity.Space;
+                        break;
+                    case "Чет":
+                        port.Parity = Parity.Even;
+                        break;
+                    case "Нечет":
+                        port.Parity = Parity.Odd;
+                        break;
+                    case "Маркер":
+                        port.Parity = Parity.Mark;
+                        break;
+                    default:
+                        port.Parity = Parity.None;
+                        break;
+                }
+                switch (comboBox1.Text)
+                {
+                    case "2":
+                        port.StopBits = StopBits.Two;
+                        break;
+                    case "1.5":
+                        port.StopBits = StopBits.OnePointFive;
+                        break;
+                    case "Нет":
+                        port.StopBits = StopBits.None;
+                        break;
+
+                    default:
+                        port.StopBits = StopBits.One;
+                        break;
+                }
+                switch (comboBox2.Text)
+                {
+                    case "Xon/Xoff":
+                        port.Handshake = Handshake.XOnXOff;
+                        break;
+                    case "Аппаратное":
+                        port.Handshake = Handshake.RequestToSend;
+                        break;
+                    default:
+                        port.Handshake = Handshake.None;
+                        break;
+                }
+                #endregion
+                try
+                {
+                    port.Open();
+                    button2.Text = "Стоп";
+                    // button2.Enabled = false;
+                }
+                catch
+                {
+                    MessageBox.Show("Порт " + port.PortName + " неможливо відкрити!",
+
+                    "Помилка!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+                    comboBox6.SelectedText = "";
+                    button2.Text = "Старт";
+                }
+            }
+            else
+            {
+                if (port.IsOpen) port.Close();
+                button2.Text = "Старт";
+                // button2.Enabled = true;
             }
         }
     }
